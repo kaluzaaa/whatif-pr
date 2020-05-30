@@ -28,5 +28,5 @@ jobs:
     - name: Comment PR
       uses: thollander/actions-comment-pull-request@master
       with:
-        message: "'''${steps.log-to-comment.outputs.comment}'''"
+        message: "'''${{steps.log-to-comment.outputs.comment}}'''"
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
