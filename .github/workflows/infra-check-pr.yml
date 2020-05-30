@@ -25,8 +25,4 @@ jobs:
     - name: log-to-comment
       run: echo "::set-output name=comment::$(cat what-if.log)"
     
-    - name: Comment PR
-      uses: thollander/actions-comment-pull-request@master
-      with:
-        message: "'''${{steps.log-to-comment.outputs.comment}}'''"
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - run: echo "${{steps.log-to-comment.outputs.comment}}"
