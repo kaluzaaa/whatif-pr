@@ -21,7 +21,8 @@ jobs:
       with:
         inlineScript: |
           az deployment group what-if --resource-group what-if-demo --template-file $GITHUB_WORKSPACE/arm/template.json --parameters $GITHUB_WORKSPACE/arm/parameters.json --mode Complete 2>&1 | tee -a what-if.log
-          file -i what-if.log
+    
+    - run: file -i what-if.log
     
     - uses: actions/github-script@v1
       with:
