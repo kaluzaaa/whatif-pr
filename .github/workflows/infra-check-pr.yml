@@ -21,8 +21,15 @@ jobs:
       with:
         inlineScript: |
           az deployment group what-if --resource-group what-if-demo --template-file $GITHUB_WORKSPACE/arm/template.json --parameters $GITHUB_WORKSPACE/arm/parameters.json --mode Complete 2>&1 | tee -a what-if.log
-
-    - name: log-to-comment
-      run: echo "::set-output name=comment::$(cat what-if.log)"
     
-    - run: echo "${{steps.log-to-comment.outputs.comment}}"
+    - uses: actions/github-script@v1
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          const fs = require('fs')
+          github.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: fs.readFileSync("what-if.log", "utf8");
+          })
