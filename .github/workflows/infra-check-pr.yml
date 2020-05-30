@@ -2,6 +2,7 @@ name: what-if
 
 on:
   pull_request:
+    paths: arm/*.json
     branches: [ master ]
 
 jobs:
