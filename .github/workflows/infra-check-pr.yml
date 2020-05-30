@@ -20,4 +20,4 @@ jobs:
       uses: azure/CLI@v1
       with:
         inlineScript: |
-          az deployment group what-if --resource-group what-if --template-file $GITHUB_WORKSPACE/arm/template.json --parameters $GITHUB_WORKSPACE/arm/parameters.json --mode Complete 2>&1 | tee -a what-if.log
+          az deployment group what-if --resource-group what-if-demo --template-file $GITHUB_WORKSPACE/arm/template.json --parameters $GITHUB_WORKSPACE/arm/parameters.json --mode Complete 2>&1 | tee -a what-if.log
