@@ -22,11 +22,11 @@ jobs:
         inlineScript: |
           az deployment group what-if --resource-group what-if-demo --template-file $GITHUB_WORKSPACE/arm/template.json --parameters $GITHUB_WORKSPACE/arm/parameters.json --mode Complete 2>&1 | tee -a what-if.log
 
-    - name: Set log
-      run: echo "::set-output name=what-if::$(cat what-if.log)"
+    - name: log-to-comment
+      run: echo "::set-output comment=what-if::$(cat what-if.log)"
     
     - name: Comment PR
       uses: thollander/actions-comment-pull-request@master
       with:
-        message: "''''''"
+        message: "'''${steps.log-to-comment.outputs.comment}'''"
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
