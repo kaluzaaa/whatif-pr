@@ -24,12 +24,11 @@ jobs:
     
     - uses: actions/github-script@v1
       with:
-        github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
           const fs = require('fs')
           github.issues.createComment({
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: "```\n" + fs.readFileSync("what-if.log", "ascii") + "```"
+            body: "The deployment will do the following changes:\n```\n" + fs.readFileSync("what-if.log", "ascii") + "```"
           })
