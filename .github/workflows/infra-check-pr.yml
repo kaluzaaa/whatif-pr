@@ -22,16 +22,11 @@ jobs:
         inlineScript: |
           az deployment group what-if --resource-group what-if-demo --template-file $GITHUB_WORKSPACE/arm/template.json --parameters $GITHUB_WORKSPACE/arm/parameters.json --mode Complete 2>&1 | tee -a what-if.log
 
-    - name: Check log
-      run: cat what-if.log
+    - name: Set log
+      run: echo "::set-output name=what-if::$(cat what-if.log)"
     
-    - uses: actions/github-script@v1
+    - name: Comment PR
+      uses: thollander/actions-comment-pull-request@master
       with:
-        github-token: ${{secrets.GITHUB_TOKEN}}
-        script: |
-          github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '👋 Test'
-            })
+        message: "''''''"
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
