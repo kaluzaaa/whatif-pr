@@ -19,9 +19,11 @@ jobs:
     
     - name: Azure CLI script file
       uses: azure/CLI@v1
+      env:
+        AZURE_CORE_NO_COLOR: True
       with:
         inlineScript: |
-          az deployment group what-if --no-prompt --resource-group what-if-demo --template-file $GITHUB_WORKSPACE/arm/template.json --parameters $GITHUB_WORKSPACE/arm/parameters.json --mode Complete | sed 's/\x1b\[[0-9;]*m//g' | tee -a what-if.log
+          az deployment group what-if --no-prompt --resource-group what-if-demo --template-file $GITHUB_WORKSPACE/arm/template.json --parameters $GITHUB_WORKSPACE/arm/parameters.json --mode Complete | tee -a what-if.log
     
     - uses: actions/github-script@v1
       with:
